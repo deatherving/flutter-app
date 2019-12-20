@@ -12,7 +12,9 @@ class Quiz extends StatefulWidget {
 }
 
 class QuizState extends State<Quiz> {
-  void answerQuestion() {
+  void answerQuestion(int score) {
+    _totalScore += score;
+
     // Call setstate would trigger re-build of the widget
     setState(() {
       _index += 1;
@@ -20,16 +22,16 @@ class QuizState extends State<Quiz> {
   }
 
   var _index = 0;
-
+  var _totalScore = 0;
 
   dynamic _questions = const [
     {
       "questionText" : "What's your favorite color?",
-      "answers" : ["Black", "White", "Green"]
+      "answers" : [{"Black" : 10}, {"White" : 5}, {"Green" : -5}]
     },
     {
       "questionText" : "What's your favorite animal?",
-      "answers" : ["Lion", "Duck", "Elephant", "Snake"]
+      "answers" : [{"Lion" : 20}, {"Duck" : -10}, {"Elephant" : 1}, {"Snake" : -50}]
     },
   ];
 
@@ -48,7 +50,7 @@ class QuizState extends State<Quiz> {
               _questions[_index]["answers"],
               answerQuestion
             )
-         : Result(),
+         : Result(_totalScore),
       ),
     );
   }

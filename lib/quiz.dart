@@ -17,7 +17,7 @@ class QuizContent extends StatelessWidget {
 
     return Column(children: [
         Question(_question),
-        for(String title in _answers) Answer(title, this._handler)
+        for(Map<String, int> answer in _answers) Answer(answer.keys.first, () => _handler(answer.values.first))
       ],
     );
   }
